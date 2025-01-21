@@ -1,0 +1,82 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+$theme-colors: (
+  "primary": #0d6efd,
+  "secondary": #6c757d,
+  "success": #198754,
+  "info": #0dcaf0,
+  "warning": #ffc107,
+  "danger": #dc3545,
+  "light": #f8f9fa,
+  "dark": #212529,
+  "custom-color": #ff5733
+);
+
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem,
+  6: 5rem,
+);
+
+$border-widths: (
+  0: 0,
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+);
+
+$display-font-sizes: (
+  1: 6rem,
+  2: 5.5rem,
+  3: 4.5rem,
+  4: 3.5rem,
+  5: 2.5rem,
+  6: 2rem,
+  7: 1.5rem
+);
+
+@function is-valid-hex-color($color) {
+  $color-str: meta.inspect($color);
+  $len: str-length($color-str);
+  @if ($len == 4 or $len == 7 or $len == 9) and str-slice($color-str, 1, 1) == '#' {
+    @for $i from 2 through $len {
+      $char: str-slice($color-str, $i, $i);
+      @if not (index('0123456789abcdefABCDEF', $char)) {
+        @return false;
+      }
+    }
+    @return true;
+  }
+  @return false;
+}
+
+@mixin set-bg-and-text-color($bg-color) {
+  @if is-valid-hex-color($bg-color) {
+    background-color: $bg-color;
+    color: color-contrast($bg-color);
+  } @else {
+    background-color: white;
+    color: black;
+  }
+}
+
+.title-component {
+  font-size: 3em;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 1rem;
+  text-align: center;
+
+  @each $color-name, $color-value in $theme-colors {
+    &--#{$color-name} {
+      @include set-bg-and-text-color($color-value);
+    }
+  }
+}
+
+@import "node_modules/bootstrap/scss/bootstrap";
