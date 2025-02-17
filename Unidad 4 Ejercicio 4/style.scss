@@ -1,0 +1,53 @@
+$primary: #11657a;
+$secondary: #a75611;
+$tertiary: #822f34;
+$border-radius: 0;
+$margin: 10px;
+$padding: 10px;
+$info: #17a2b8;
+
+@mixin padding-margin($valor) {
+    @if $valor >0 {
+        padding: $valor;
+        margin: $valor;
+    }
+
+    @else {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.banner {
+    @extend .bg-light;
+    @extend .text-secondary;
+    @extend .lead;
+    border: 1px solid $tertiary;
+    @include padding-margin($margin);
+
+    &:hover {
+        background-color: $info;
+    }
+
+    button {
+        @extend .btn;
+        border: $tertiary 1px solid;
+    }
+}
+
+.banner-sm {
+    @extend .banner;
+    width: 25%;
+}
+
+.banner-md {
+    @extend .banner;
+    width: 50%;
+}
+
+.banner-lg {
+    @extend .banner;
+    width: 75%;
+}
+
+@import './node_modules/bootstrap/scss/bootstrap';
